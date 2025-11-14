@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+        <div class="video-background">
+            <video autoplay muted loop playsinline id="bgVideo">
+                <source src="STATIC/backgroun-1.mp4" type="video/mp4">
+                Seu navegador não suporta a tag de video.
+            </video>
+        </div>
+
+        <audio id="bgm" loop autoplay muted>
+            <source src="STATIC/horror-background.mp3" type="audio/mpeg">
+            Seu navegador não suporta a tag de áudio.
+        </audio>
+        <audio id="sfx-click" preload="auto">
+            <source src="STATIC/bone-snap.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="content">
+
+            <button id="toggle-bgm" class="btn-audio" onclick="toggleAudio()">🔊</button>
+
+            <div id="main-box">
+                <div id="tela-inicial" class="tela-jogo-interna">
+                    <div class="logo-frase-container">
+                        <div class="logo">
+                            <img src="STATIC/Logo - ForC.png" alt="Logo do Jogo ForC"> 
+                        </div>
+                        <h1 class="frase-macabra">Seu jogo da forca, diferente...</h1>
+                        <p class="subtitulo-macabro">☠ PREPARE-SE PARA MORRER ☠</p>
+                    </div>
+
+                    <button id="btn-comecar-img" onclick="mudarTela('tela-temas')"></button>
+                </div> 
+
+            <div id="tela-temas" class="tela-jogo-interna" style="display: none;">
+            <h2 class="titulo-tela-secundaria">Escolha um Tema</h2>
+                <div class="botoes-tema-container">
+                    <button id="btn-filmes" class="btn-tema-img" onclick="selecionarTema('FILMES')"></button>
+                    <button id="btn-medos" class="btn-tema-img" onclick="selecionarTema('MEDOS')"></button>
+                    <button id="btn-monstros" class="btn-tema-img" onclick="selecionarTema('MONSTROS')"></button>
+                    <button id="btn-torturas" class="btn-tema-img" onclick="selecionarTema('TORTURAS')"></button>
+                </div>
+                <div class="container-voltar">
+                    <a href="#" class="btn-voltar-img" onclick="mudarTela('tela-inicial')"></a>
+                </div>
+            </div>
+
+            <div id="tela-dificuldade" class="tela-jogo-interna" style="display: none;">
+                <h2 class="titulo-tela-secundaria">Escolha a Dificuldade Macabra</h2>
+
+                <p class="explicacao-macabra"> ☠ A dificuldade está relacionada a quantidade de erros permitidos antes de perder ☠</p>
+
+                <div class="botoes-dificuldade-container">
+                    <button id="btn-facil" class="btn-tema-img" onclick="selecionarDificuldade('Fácil', 9)"></button>
+                    <button id="btn-medio" class="btn-tema-img" onclick="selecionarDificuldade('Médio', 5)"></button>
+                    <button id="btn-dificil" class="btn-tema-img" onclick="selecionarDificuldade('Difícil', 4)"></button>
+                </div>
+                <div class="container-voltar">
+                    <a href="#" class="btn-voltar-img" onclick="mudarTela('tela-temas')"></a>
+                </div>
+            </div>
+
+            <div id="tela-jogo" class="tela-jogo-interna" style="display: none;">
+                    
+                <div id="header-jogo"> <h3 id="tema-atual">Tema: [Nome do Tema]</h3>
+                    <p id="tentativas-restantes">Tentativas Restantes: 8</p>
+                </div>
+                    
+                    <img id="imagem-forca" src="STATIC/forca_0.png" alt="Estágio 0 da Forca">
+                    
+                    <div id="display-palavra" class="display-palavra">
+                    </div>
+                    
+                    <div id="teclado-container" class="teclado-container">
+                    </div>
+            </div>
+
+                <div id="modal-resultado" class="tela-resultado" style="display: none;">
+                    <p id="palavra-final"></p>
+                    <a href="#" id="btn-jogar-novamente-img" class="btn-jogar-novamente-img" onclick="mudarTela('tela-inicial')"></a>
+                </div>
+                <div id="tela-temas" style="display: none;">
+                    </div>
+                
+                </div> </div> </main>
+    <script src="script.js"></script>
+</body>
+</html>
