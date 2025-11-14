@@ -23,6 +23,11 @@ const palavrasPorTema = {
     "TORTURAS": ["ELETROCUTADO", "AFOGAMENTO", "QUEIMADURA", "EMPÁLAMO", "DONZELA DE FERRO", "BERÇO DE JUDAS", "AFOGAMENTO SIMULADO", "BALCÃO DE ESTIRAMENTO", "RATO", "VIOLA DAS COMADRES"]
 }
 
+function normalizar(texto) {
+    if (!texto) return '';
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+}
+
 //TELA E AUDIO
 function toggleAudio() {
     if (bgm.paused) {
@@ -127,7 +132,13 @@ function iniciarJogo() {
     }
 
     errosCometidos = 0;
-    palavraDisplay = Array(palavraSecreta.length).fill('_');
+    palavraDisplay = palavraSecreta.split('').map(char => {
+        if (char === ' ' || char === '-') {
+            return char;
+        } else {
+            return '_';
+        }
+    });
 
     const nomeBaseImagem = nomesBaseImagensPorDificuldade[dificuldadeEscolhida];
 
@@ -166,9 +177,12 @@ function tentarLetra(letra, button) {
 
     let letraAcertada = false;
 
+    const letraNormalizada = normalizar(letra);
+    const palavraNormalizada = normalizar(palavraSecreta);
+
     for (let i = 0; i < palavraSecreta.length; i++) {
-        if (palavraSecreta[i] === letra) {
-            palavraDisplay[i] = letra;
+        if (palavraNormalizada[i] === letraNormalizada) {
+            palavraDisplay[i] = palavraSecreta[i];
             letraAcertada = true;
         }
     }
