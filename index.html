@@ -18,7 +18,7 @@
             </video>
         </div>
 
-        <audio id="bgm" loop autoplay muted>
+        <audio id="bgm" loop oreload="auto">
             <source src="STATIC/horror-background.mp3" type="audio/mpeg">
             Seu navegador não suporta a tag de áudio.
         </audio>
@@ -87,8 +87,14 @@
             </div>
 
                 <div id="modal-resultado" class="tela-resultado" style="display: none;">
-                    <p id="palavra-final"></p>
-                    <a href="#" id="btn-jogar-novamente-img" class="btn-jogar-novamente-img" onclick="mudarTela('tela-inicial')"></a>
+    
+                    <div class="resultado-container">
+                        <img id="imagem-resultado" alt="Resultado">
+                        <p id="palavra-final"></p>
+                        <a href="#" id="btn-jogar-novamente-img" class="btn-jogar-novamente-img"
+                            onclick="mudarTela('tela-inicial')"></a>
+                    </div>
+
                 </div>
                 <div id="tela-temas" style="display: none;">
                     </div>

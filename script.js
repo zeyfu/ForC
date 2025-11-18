@@ -31,18 +31,21 @@ function normalizar(texto) {
 //TELA E AUDIO
 function toggleAudio() {
     if (bgm.paused) {
-        bgm.play().then(() => {
-            toggleBGMButton.textContent = '🔊';
-            isMuted = false;
-        }).catch(error => {
-            console.error("Erro ao tentar tocar o áudio:", error);
-        });
+        bgm.muted = false;  
+        bgm.play();
+        toggleBGMButton.textContent = "🔊";
     } else {
         bgm.pause();
-        toggleBGMButton.textContent = '🔇';
-        isMuted = true;
+        toggleBGMButton.textContent = "🔇";
     }
 }
+
+document.body.addEventListener("click", () => {
+    if (bgm.paused) {
+        bgm.muted = false;
+        bgm.play().catch(()=>{});
+    }
+}, { once: true });
 
 function iniciarAudioComInteracao() {
     if (bgm.paused) {
@@ -133,12 +136,14 @@ function iniciarJogo() {
 
     errosCometidos = 0;
     palavraDisplay = palavraSecreta.split('').map(char => {
-        if (char === ' ' || char === '-') {
-            return char;
-        } else {
-            return '_';
-        }
-    });
+    if (char === ' ') {
+        return '-';
+    }
+    if (char === '-') {
+        return '-';
+    }
+    return '_';
+});
 
     const nomeBaseImagem = nomesBaseImagensPorDificuldade[dificuldadeEscolhida];
 
@@ -215,15 +220,17 @@ function finalizarJogo(vitoria) {
     const palavraFinal = document.getElementById('palavra-final');
     const btnJogarNovamente = document.getElementById('btn-jogar-novamente-img');
     if (vitoria) {
-        telaResultado.style.backgroundImage = "url('STATIC/VITORIA.png')";
+        document.getElementById('imagem-resultado').src = "STATIC/VITORIA.png";
         palavraFinal.style.color = "#00ff00";
         palavraFinal.textContent = `A palavra era: ${palavraSecreta}`;
+        palavraFinal.style.display = "block";
         
     } else {
         document.getElementById('display-palavra').textContent = palavraSecreta.split('').join(' '); 
-        telaResultado.style.backgroundImage = "url('STATIC/DERROTA2.png')";
+        document.getElementById('imagem-resultado').src = "STATIC/DERROTA2.png";
         palavraFinal.style.color = "#caa1a1ff";
         palavraFinal.textContent = `A palavra era: ${palavraSecreta}`;
+        palavraFinal.style.display = "block";
     }
     const DELAY_MS = 1000; 
 
